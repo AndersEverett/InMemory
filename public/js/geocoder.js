@@ -8,12 +8,15 @@
       type: 'get',
       data: $(that).serialize()
     }).done(function(data) {
-        codeAddress(i[0],i[1])
+        $(data).each(function(index) {
+          address = index[0] + " " + index[1];
+          setTimeout('codeAddress(' + address + ")" , 2500);
+        });
       console.log(data.length)
       console.log(data[0][0])
       console.log(data[0][1])
     }).fail(function() {
-
+       console.log("Something needs to be fixed.")
     });
     
   }
