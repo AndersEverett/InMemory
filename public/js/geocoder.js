@@ -1,3 +1,4 @@
+
   var geocoder;
 
   function initialize() {
@@ -7,21 +8,24 @@
       url: '/soldiers',
       type: 'get',
       data: $(that).serialize()
+
     }).done(function(data) {
+
         $(data).each(function(index) {
+          console.log(data[0][0]);
+          console.log(data[0][1]);
           address = index[0] + " " + index[1];
-          setTimeout('codeAddress(' + address + ")" , 2500);
+          setTimeout('codeAddress(' + address + ")" , 1500);
+
         });
-      console.log(data.length)
-      console.log(data[0][0])
-      console.log(data[0][1])
+
     }).fail(function() {
        console.log("Something needs to be fixed.")
     });
-    
   }
 
   function codeAddress(address) {
+    console.log("in codeAddress")
     // var address = document.getElementById("address").value;
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {

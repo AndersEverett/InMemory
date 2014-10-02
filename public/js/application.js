@@ -1,22 +1,22 @@
-  
+
       function initialize() {
-         
+
         var mapOptions = {
           center: { lat: 38.50, lng: -96.28},
           zoom: 5.0
         };
-        
+
         var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
-        
+
         map.set('styles',  [
             {
             featureType: "road",
             elementType: "all",
             stylers: [
               {visibility: "off"}
-            ]  
-          },{    
+            ]
+          },{
             featureType: "landscape",
             elementType: "all",
             stylers: [
@@ -45,24 +45,26 @@
           	]
           },
         ]);
-      
+
 
         var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
-        
+
         var mapOptions = {
           center: { lat: 38.50, lng: -93.28},
           zoom: 5.0
         };
-        
+
         var map = new google.maps.StyledMapType(document.getElementById('map-canvas'),
             mapOptions);
-        
+
         map.setOptions({styles: styles});
-        
+
         // mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']}
 
         map.setMapTypeId('map_style');
         map.mapTypes.set('map_style', styledMap);
+
+
 
     }
       google.maps.event.addDomListener(window, 'load', initialize);

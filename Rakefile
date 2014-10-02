@@ -113,6 +113,11 @@ namespace :db do
     require APP_ROOT.join('db', 'seeds.rb')
   end
 
+  desc "Populate the database with longitudes and latitudes by running db/seeds.rb"
+  task :geopop do
+    require APP_ROOT.join('db', 'geo.rb')
+  end
+
   desc "Returns the current schema version number"
   task :version do
     puts "Current version: #{ActiveRecord::Migrator.current_version}"
@@ -126,16 +131,6 @@ namespace :db do
   end
 end
 
-require 'csv'
-desc "Imports a CSV file into an ActiveRecord table"
-task :import, [:filename] => :environment do    
-  CSV.foreach('iraq.csv', :headers => true) do |row|
-  Soldier.create!(row.to_hash)
-  end
-  CSV.foreach('afghanistan.csv', :headers => true) do |row|
-  Soldier.create!(row.to_hash)
-  end
-end
 
 desc 'Start IRB with application environment loaded'
 task "console" do
