@@ -1,9 +1,10 @@
 
 def get_geo
   @soldiers = Soldier.where("country like ?", "%U.S.%").all
-  @soldiers = @soldiers.where("id < 2582").last(1000)  
+  @soldiers = @soldiers.where("id < 1000").limit(1000)
   @soldiers.each do |soldier|
-    if soldier.longitude == nil   
+    p "soldier"
+    if soldier.longitude == nil
       city = soldier.city
       if city != nil
         city = city.downcase.gsub(/[^[[:word:]]\s]/, '')
@@ -38,7 +39,7 @@ def get_geo
           end
         end
       end
-    end  
+    end
   end
 end
 

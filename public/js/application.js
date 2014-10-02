@@ -1,17 +1,12 @@
+      var map;
+      // var heatmap;
 
-      function initialize() {
-
-        // var mapOptions = {
-        //   center: { lat: 38.50, lng: -93.28},
-        //   zoom: 5.0
-        // };
-        var latlng = new google.maps.LatLng(37.7833, 122.4167);
+      function createMap() {
 
         var mapOptions = {
           center: { lat: 38.50, lng: -96.28},
           zoom: 5.0
         };
-
         var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
 
@@ -29,7 +24,7 @@
               {visibility: "simplified"},
               {color: "#163d04"},
               {hue: "#dd00ff"},
-    		  {saturation: -11},
+          {saturation: -11},
               {lightness: -17},
               { gamma: 1.04 }
             ]
@@ -40,43 +35,32 @@
               { visibility: "off" }
             ]
           },{
-          	featureType: "water",
-          	elementType: "all",
-          	stylers: [
-          	  {color: "#a3899a"},
-          	  {hue: "#ff0008"},
-          	  {saturation: 13},
-          	  {lightness: -17},
-          	  {gamma: 0.68},
-          	]
+            featureType: "water",
+            elementType: "all",
+            stylers: [
+              {color: "#a3899a"},
+              {hue: "#ff0008"},
+              {saturation: 13},
+              {lightness: -17},
+              {gamma: 0.68},
+            ]
           },
         ]);
 
+        console.log("map set");
 
-        var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
+        function lightPath(coords) {
+          var marker1 = new google.maps.Marker({
+              map: map,
+              position: new google.maps.LatLng(coords[0], coords[1]),
+              // icon: 'images/light.png',
+              animation: google.maps.Animation.DROP
+            });
+        }
+          lightPath([37.7833, -122.41467]);
+        }
 
-      
-
-        var map = new google.maps.StyledMapType(document.getElementById('map-canvas'),
-            mapOptions);
-
-        map.setOptions({styles: styles});
-
-        map.setMapTypeId('map_style');
-        map.mapTypes.set('map_style', styledMap);
-
-        var marker1 = new google.maps.Marker({
-        
-          position: new google.maps.LatLng(28.4158, 81.2989),
-        
-          map: map,
-          
-        });
+google.maps.event.addDomListener(window, 'load', createMap);
 
 
-        
-    }
-      google.maps.event.addDomListener(window, 'load', initialize);
-
-    
 
