@@ -1,8 +1,9 @@
-      // var map;
-      // var heatmap;
-      allAddresses = [];
+      var map;
+      
       function createMap() {
+ 
         geocoder = new google.maps.Geocoder();
+        
         var mapOptions = {
           center: { lat: 38.50, lng: -96.28},
           zoom: 5.0
@@ -47,6 +48,38 @@
           },
         ]);
 
+
+    function BindListener(controlDiv, map) {
+
+      // Set CSS styles for the DIV containing the control
+      // Setting padding to 5 px will offset the control
+      // from the edge of the map
+      controlDiv.style.padding = '5px';
+
+      // Set CSS for the control border
+      var controlUI = document.createElement('div');
+      controlUI.style.backgroundColor = 'white';
+      controlUI.style.borderStyle = 'solid';
+      controlUI.style.borderWidth = '2px';
+      controlUI.style.cursor = 'pointer';
+      controlUI.style.textAlign = 'center';
+      controlUI.title = 'Launch Memorial';
+      controlDiv.appendChild(controlUI);
+
+      // Set CSS for the control interior
+      var controlText = document.createElement('div');
+      controlText.style.fontFamily = 'Arial,sans-serif';
+      controlText.style.fontSize = '12px';
+      controlText.style.paddingLeft = '4px';
+      controlText.style.paddingRight = '4px';
+      controlText.innerHTML = '<b>Launch</b>';
+      controlUI.appendChild(controlText);
+
+      // Setup the click event listeners: simply set the map to
+      // Chicago
+      google.maps.event.addDomListener(controlUI, 'click', function() {
+        
+    
         $.ajax({
               url: '/soldiers',
               type: 'get'
@@ -87,6 +120,14 @@
               }
 
 
+      });
+
+    }
+  
+        var launchDiv = document.createElement('div');
+        var homeControl = new BindListener(launchDiv, map);
+        launchDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(launchDiv);
 
       }
 
