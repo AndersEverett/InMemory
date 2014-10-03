@@ -6,7 +6,7 @@ end
 get '/soldiers' do
   content_type 'json'
   @soldiers = Soldier.where("country like ?", "%U.S.%").all
-  @soldiers = @soldiers.limit(20)
+  @soldiers = @soldiers.limit(100)
   @all_locales = []
   p "got the list of soldiers*******************"
   @soldiers.each do |soldier|
@@ -26,7 +26,7 @@ end
 #     if soldier.latitude != nil && soldier.longitude != nil
 #       @soldier_stats << soldier.longitude
 #       @soldier_stats << soldier.latitude
-#       @all_locales << soldier_stats
+#       @all_locales << ;[]p\l[pkop]
 #     end
 #   end
 
