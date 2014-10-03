@@ -47,18 +47,52 @@
           },
         ]);
 
-        console.log("map set");
+        $.ajax({
+              url: '/soldiers',
+              type: 'get'
 
-        function lightPath(coords) {
-          var marker1 = new google.maps.Marker({
-              map: map,
-              position: new google.maps.LatLng(coords[0], coords[1]),
-              // icon: 'images/light.png',
-              animation: google.maps.Animation.DROP
+            }).done(function(data) {
+                console.log("here's the data")
+                $.each(data, function(index, value) {
+                  console.log(data[index][0]);
+                  console.log(data[index][1]);
+                  address = (data[index][0]) + "," + (data[index][1]);
+                  $('#map-canvas').append("<div> address </div>").addClass('address');
+                  setTimeout(lightPath, 2500);
+                  // setTimeout('lightPath(' + address + ")" , 2500);
+                   // lightPath([37.7833, -122.41467])
+                });
+
+            }).fail(function() {
+               console.log("Something needs to be fixed.")
             });
-        }
-          lightPath([37.7833, -122.41467]);
-        }
+          function lightPath() {
+
+            console.log("inside")
+            var address = document.getElementById("address").value;
+            geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({'address': address}, function(results, status) {
+
+                    console.log("good so far")
+                    console.log("results")
+              if (status == google.maps.GeocoderStatus.OK) {
+                    // map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                        // animation: google.maps.Animation.DROP
+                    });
+              } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+          }
+      }
+
+
+
+
 
 google.maps.event.addDomListener(window, 'load', createMap);
 
