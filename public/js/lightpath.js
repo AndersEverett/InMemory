@@ -1,37 +1,83 @@
+// geocoder = new google.maps.Geocoder();
 
+// var launchDiv = document.createElement('div');
+// var homeControl = new HomeControl(launchDiv, map);
+// launchDiv.index = 1;
+// map.controls[google.maps.ControlPosition.TOP_RIGHT].push(launchDiv);
 
+// function BindListener(controlDiv, map) {
 
+//   // Set CSS styles for the DIV containing the control
+//   // Setting padding to 5 px will offset the control
+//   // from the edge of the map
+//   controlDiv.style.padding = '5px';
 
-//single marker:
+//   // Set CSS for the control border
+//   var controlUI = document.createElement('div');
+//   controlUI.style.backgroundColor = 'white';
+//   controlUI.style.borderStyle = 'solid';
+//   controlUI.style.borderWidth = '2px';
+//   controlUI.style.cursor = 'pointer';
+//   controlUI.style.textAlign = 'center';
+//   controlUI.title = 'Launch Memorial';
+//   controlDiv.appendChild(controlUI);
 
- // var marker = new google.maps.Marker({
-        //   position: new google.maps.LatLng(46.5778, 116.7078)
-        //   map: styledMap
-        // });
+//   // Set CSS for the control interior
+//   var controlText = document.createElement('div');
+//   controlText.style.fontFamily = 'Arial,sans-serif';
+//   controlText.style.fontSize = '12px';
+//   controlText.style.paddingLeft = '4px';
+//   controlText.style.paddingRight = '4px';
+//   controlText.innerHTML = '<b>Launch</b>';
+//   controlUI.appendChild(controlText);
 
-// var addressArray = new Array("41 Green Ln, Handsworth, Birmingham, West Midlands B21 0DE, UK","BT27 4SB","Norwich");
+//   // Setup the click event listeners: simply set the map to
+//   // Chicago
+//   google.maps.event.addDomListener(controlUI, 'click', function() {
+//     plotPoints();
+//   });
 
-// var geocoder = new google.maps.Geocoder();
-// for (var i = 0; i < addressArray.length; i++) {
-// 05.
-// geocoder.geocode( { 'address': addressArray[i]}, function(results, status) {
-// 06.
-// if (status == google.maps.GeocoderStatus.OK) {
-// 07.
-// var marker = new google.maps.Marker({
-// 08.
-// map: map,
-// 09.
-// position: results[0].geometry.location
-// 10.
-// });
-// 11.
-// } else {
-// 12.
-// alert("Geocode was not successful for the following reason: " + status);
-// 13.
 // }
-// 14.
-// });
-// 15.
+
+// var plotPoints = function() {
+// $.ajax({
+//    url: '/soldiers',
+//    type: 'get'
+
+//    }).done(function(data) {
+//      $.each(data, function(index, value) {
+//         address = (data[index][0]) + "," + (data[index][1])
+//         function lightPath(address) {
+        
+// 		    geocoder.geocode({'address': adress}, function(adress, status) {
+// 		    console.log("********inside" + adress);
+	    
+// 		    if (status == google.maps.GeocoderStatus.OK) {
+// 		      console.log("inside if statement")
+		                    
+// 		      var marker = new google.maps.Marker({
+// 		        map: map,
+// 		        position: adr[0].geometry.location
+// 		                        // animation: google.maps.Animation.DROP
+// 		      });
+// 		    }else {
+// 		      alert("Geocode was not successful for the following reason: " + status);
+// 		    }
+
+// 		    });
+// 	    console.log("post attempted");
+//         };
+        
+//       });
+
+//      }).fail(function() {
+//         console.log("Something needs to be fixed.")
+//      });
+ 
+     
+   
+    
+  
 // }
+
+// google.maps.event.addDomListener(window, 'load', bindListener);
