@@ -3,35 +3,35 @@ get '/' do
 end
 
 
-# get '/soldiers' do
-#   content_type 'json'
-#   @soldiers = Soldier.where("country like ?", "%U.S.%").all
-#   @soldiers = @soldiers.limit(200)
-#   @all_locales = []
-#   p "got the list of soldiers*******************"
-#   @soldiers.each do |soldier|
-#     @all_locales.push(load_soldiers_helper(soldier))
-#   end
-#   p @all_locales.to_json
-# end
-
 get '/soldiers' do
   content_type 'json'
   @soldiers = Soldier.where("country like ?", "%U.S.%").all
-  @soldiers = @soldiers.where("id < 1000").limit(25)
+  @soldiers = @soldiers.limit(50)
   @all_locales = []
   p "got the list of soldiers*******************"
   @soldiers.each do |soldier|
-    p soldier
-    if soldier.latitude != nil && soldier.longitude != nil
-      @soldier_stats << soldier.longitude
-      @soldier_stats << soldier.latitude
-      @all_locales << soldier_stats
-    end
+    @all_locales.push(load_soldiers_helper(soldier))
   end
-
   p @all_locales.to_json
 end
+
+# get '/soldiers' do
+#   content_type 'json'
+#   @soldiers = Soldier.where("country like ?", "%U.S.%").all
+#   @soldiers = @soldiers.where("id < 1000").limit(25)
+#   @all_locales = []
+#   p "got the list of soldiers*******************"
+#   @soldiers.each do |soldier|
+#     p soldier
+#     if soldier.latitude != nil && soldier.longitude != nil
+#       @soldier_stats << soldier.longitude
+#       @soldier_stats << soldier.latitude
+#       @all_locales << ;[]p\l[pkop]
+#     end
+#   end
+
+#   p @all_locales.to_json
+# end
 
 # get '/soldiers/3' do
 #   content_type 'json'

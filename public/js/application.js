@@ -1,9 +1,11 @@
       var map;
-      var allAddresses;
+      var addressTemp;
+      var allAddresses = [];
+      var iterator = 0;
       function createMap() {
- 
+
         geocoder = new google.maps.Geocoder();
-        
+
         var mapOptions = {
           center: { lat: 38.50, lng: -96.28},
           zoom: 5.0
@@ -48,6 +50,25 @@
           },
         ]);
 
+        $.ajax({
+              url: '/soldiers',
+              type: 'get'
+
+            }).done(function(data) {
+                // console.log("here's the data")
+                $.each(data, function(index, value) {
+                  // console.log(data[index][0]);
+                  // console.log(data[index][1]);
+                  address = (data[index][0]) + "," + (data[index][1])
+                  allAddresses.push(address)
+                  return allAddresses;
+                 });
+                 // console.log($(allAddresses))
+
+            }).fail(function() {
+               console.log("Something needs to be fixed.")
+            })
+
 
     function BindListener(controlDiv, map) {
 
@@ -75,57 +96,101 @@
       controlText.innerHTML = '<b>Launch</b>';
       controlUI.appendChild(controlText);
 
-      
-      google.maps.event.addDomListener(controlUI, 'click', function() {
-        
-    
-        $.ajax({
-              url: '/soldiers',
-              type: 'get'
+      function dropPin() {
+        for (var i = 0; i< allAddresses.length; i++) {
+            setTimeout(function() {
+              lightPath();
+          }, 1000);
+        }
+      }
 
-            }).done(function(data) {
-                console.log("here's the data")
-                $.each(data, function(index, value) {
-                  console.log(data[index][0]);
-                  console.log(data[index][1]);
-                  address = (data[index][0]) + "," + (data[index][1])
-                  lightPath(address);
-                    
-                 });
-            }).fail(function() {
-               console.log("Something needs to be fixed.")
+      function lightPath() {
+      adr = allAddresses[iterator]
+      geocoder.geocode({'address': adr}, function(adr, status){
+
+      if (status == google.maps.GeocoderStatus.OK) {
+
+            var marker = new google.maps.Marker({
+                map: map,
+                position: (adr)[0].geometry.location
+
             });
+      } else {
+            alert("Geocode was not successful for the following reason: " + status);
+        }
 
-            
-              var lightPath = function(adr) {
-                geocoder.geocode({'address': adr}, function(adr, status){
-
-              if (status == google.maps.GeocoderStatus.OK) {
-                  
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: adr[0].geometry.location
-                        
-                    });
-              } else {
-                    alert("Geocode was not successful for the following reason: " + status);
-                }
-
-                });
-              
-              }
-
-        
       });
 
+      iterator++;
+      }
+
+
+      google.maps.event.addDomListener(controlUI, 'click', function() {
+            dropPin();
+
+            // function dropPin() {
+            //   console.log("$$$$$$"+ allAddresses[5] )
+            //   for (var i = 0; i< allAddresses.length; i++) {
+            //       console.log("before the loop" +allAddresses[i])
+            //     console.log("in the loop************")
+            //     setTimeout(function() {
+            //       lightPath(allAddresses[i]);
+            //     }, i*100);
+            //   }
+            // },
+
+        // $.ajax({
+        //       url: '/soldiers',
+        //       type: 'get'
+
+        //     }).done(function(data) {
+        //         console.log("here's the data")
+        //         $.each(data, function(index, value) {
+        //           console.log(data[index][0]);
+        //           console.log(data[index][1]);
+        //           address = (data[index][0]) + "," + (data[index][1])
+        //           allAddresses.push(address)
+        //           return allAddresses;
+        //          });
+        //          console.log($(allAddresses))
+
+        //     }).fail(function() {
+        //        console.log("Something needs to be fixed.")
+        //     }),
+
+
+              // function lightPath(adr) {
+              //   console.log("in the matrix********")
+              //   geocoder.geocode({'address': adr}, function(adr, status){
+
+              // if (status == google.maps.GeocoderStatus.OK) {
+              //       console.log(adr[0].geometry.location)
+              //       var marker = new google.maps.Marker({
+              //           map: map,
+              //           position: adr[0].geometry.location
+
+              //       });
+              // } else {
+              //       alert("Geocode was not successful for the following reason: " + status);
+              //   }
+
+              // });
+
+
+              // }
+      });
+
+
+
+
     }
-  
+
         var launchDiv = document.createElement('div');
         var homeControl = new BindListener(launchDiv, map);
         launchDiv.index = 1;
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(launchDiv);
 
-      }
+}
 
 google.maps.event.addDomListener(window, 'load', createMap);
 
