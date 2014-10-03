@@ -1,8 +1,8 @@
-      var map;
+      // var map;
       // var heatmap;
-
+      allAddresses = [];
       function createMap() {
-
+        geocoder = new google.maps.Geocoder();
         var mapOptions = {
           center: { lat: 38.50, lng: -96.28},
           zoom: 5.0
@@ -56,43 +56,39 @@
                 $.each(data, function(index, value) {
                   console.log(data[index][0]);
                   console.log(data[index][1]);
-                  address = (data[index][0]) + "," + (data[index][1]);
-                  $('#map-canvas').append("<div> address </div>").addClass('address');
-                  setTimeout(lightPath, 2500);
-                  // setTimeout('lightPath(' + address + ")" , 2500);
-                   // lightPath([37.7833, -122.41467])
-                });
-
+                  address = (data[index][0]) + "," + (data[index][1])
+                  lightPath(address)
+                 });
             }).fail(function() {
                console.log("Something needs to be fixed.")
             });
-          function lightPath() {
 
-            console.log("inside")
-            var address = document.getElementById("address").value;
-            geocoder = new google.maps.Geocoder();
 
-            geocoder.geocode({'address': address}, function(results, status) {
+              var lightPath = function(adr) {
+                geocoder.geocode({'address': adr}, function(adr, status){
 
-                    console.log("good so far")
-                    console.log("results")
               if (status == google.maps.GeocoderStatus.OK) {
+                console.log("inside if statement")
                     // map.setCenter(results[0].geometry.location);
                     var marker = new google.maps.Marker({
                         map: map,
-                        position: results[0].geometry.location
+                        position: adr[0].geometry.location
                         // animation: google.maps.Animation.DROP
                     });
               } else {
                     alert("Geocode was not successful for the following reason: " + status);
                 }
-            });
-          }
+
+                });
+              console.log("********inside");
+              console.log("****"+adr);
+              console.log(status)
+                console.log("post attempted");
+              }
+
+
+
       }
-
-
-
-
 
 google.maps.event.addDomListener(window, 'load', createMap);
 
