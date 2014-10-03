@@ -2,18 +2,48 @@ get '/' do
   erb :index
 end
 
+
+# get '/soldiers' do
+#   content_type 'json'
+#   @soldiers = Soldier.where("country like ?", "%U.S.%").all
+#   @soldiers = @soldiers.limit(200)
+#   @all_locales = []
+#   p "got the list of soldiers*******************"
+#   @soldiers.each do |soldier|
+#     @all_locales.push(load_soldiers_helper(soldier))
+#   end
+#   p @all_locales.to_json
+# end
+
 get '/soldiers' do
   content_type 'json'
   @soldiers = Soldier.where("country like ?", "%U.S.%").all
-  @soldiers = @soldiers.limit(5)
+  @soldiers = @soldiers.where("id < 1000").limit(25)
   @all_locales = []
   p "got the list of soldiers*******************"
   @soldiers.each do |soldier|
-    @all_locales.push(load_soldiers_helper(soldier))
+    p soldier
+    if soldier.latitude != nil && soldier.longitude != nil
+      @soldier_stats << soldier.longitude
+      @soldier_stats << soldier.latitude
+      @all_locales << soldier_stats
+    end
   end
+
   p @all_locales.to_json
 end
 
+# get '/soldiers/3' do
+#   content_type 'json'
+#   @soldiers = Soldier.where("country like ?", "%U.S.%").all
+#   @soldiers = @soldiers.where("id > 2000").limit(5)
+#   @all_locales = []
+#   p "got the list of soldiers*******************"
+#   @soldiers.each do |soldier|
+#     @all_locales.push(load_soldiers_helper(soldier))
+#   end
+#   p @all_locales.to_json
+# end
 # get '/' do
 #  @soldiers = Soldier.where("country like ?", "%U.S.%").all
 #  @soldiers.each do |soldier|

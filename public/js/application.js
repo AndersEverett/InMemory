@@ -1,5 +1,5 @@
       var map;
-      
+      var allAddresses;
       function createMap() {
  
         geocoder = new google.maps.Geocoder();
@@ -75,8 +75,7 @@
       controlText.innerHTML = '<b>Launch</b>';
       controlUI.appendChild(controlText);
 
-      // Setup the click event listeners: simply set the map to
-      // Chicago
+      
       google.maps.event.addDomListener(controlUI, 'click', function() {
         
     
@@ -90,36 +89,33 @@
                   console.log(data[index][0]);
                   console.log(data[index][1]);
                   address = (data[index][0]) + "," + (data[index][1])
-                  lightPath(address)
+                  lightPath(address);
+                    
                  });
             }).fail(function() {
                console.log("Something needs to be fixed.")
             });
 
-
+            
               var lightPath = function(adr) {
                 geocoder.geocode({'address': adr}, function(adr, status){
 
               if (status == google.maps.GeocoderStatus.OK) {
-                console.log("inside if statement")
-                    // map.setCenter(results[0].geometry.location);
+                  
                     var marker = new google.maps.Marker({
                         map: map,
                         position: adr[0].geometry.location
-                        // animation: google.maps.Animation.DROP
+                        
                     });
               } else {
                     alert("Geocode was not successful for the following reason: " + status);
                 }
 
                 });
-              console.log("********inside");
-              console.log("****"+adr);
-              console.log(status)
-                console.log("post attempted");
+              
               }
 
-
+        
       });
 
     }
