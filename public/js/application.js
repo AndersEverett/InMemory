@@ -1,7 +1,7 @@
       var map;
       var addressTemp;
       var allAddresses = [];
-      var markers = 0;
+      var iterator = 0;
       function createMap() {
 
         geocoder = new google.maps.Geocoder();
@@ -98,27 +98,21 @@
 
       function dropPin() {
         for (var i = 0; i< allAddresses.length; i++) {
-            // console.log("before the loop" +allAddresses[i])
-          // console.log("in the loop************")
-          // console.log(allAddresses[i])
-          addressTemp = allAddresses[i]
-          // setTimeout(function(addressTemp) {
-          //   console.log("&&" + addressTemp)
-            lightPath(addressTemp);
-          // }, i*100);
+            setTimeout(function() {
+              lightPath();
+          }, 1000);
         }
       }
 
-      function lightPath(adr) {
-        console.log("in the matrix********")
-        console.log(adr)
-        geocoder.geocode({'address': adr}, function(adr, status){
+      function lightPath() {
+      adr = allAddresses[iterator]
+      geocoder.geocode({'address': adr}, function(adr, status){
 
       if (status == google.maps.GeocoderStatus.OK) {
-            console.log(adr[0].geometry.location)
+
             var marker = new google.maps.Marker({
                 map: map,
-                position: adr[0].geometry.location
+                position: (adr)[0].geometry.location
 
             });
       } else {
@@ -127,7 +121,7 @@
 
       });
 
-
+      iterator++;
       }
 
 
