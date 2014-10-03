@@ -1,9 +1,9 @@
       var map;
-      var allAddresses;
+      var allAddresses = [];
       function createMap() {
- 
+
         geocoder = new google.maps.Geocoder();
-        
+
         var mapOptions = {
           center: { lat: 38.50, lng: -96.28},
           zoom: 5.0
@@ -75,10 +75,10 @@
       controlText.innerHTML = '<b>Launch</b>';
       controlUI.appendChild(controlText);
 
-      
+
       google.maps.event.addDomListener(controlUI, 'click', function() {
-        
-    
+
+
         $.ajax({
               url: '/soldiers',
               type: 'get'
@@ -89,37 +89,50 @@
                   console.log(data[index][0]);
                   console.log(data[index][1]);
                   address = (data[index][0]) + "," + (data[index][1])
-                  lightPath(address);
-                    
+                  allAddresses.push(address)
+                  return allAddresses;
                  });
+                 dropPin(allAddresses);
             }).fail(function() {
                console.log("Something needs to be fixed.")
             });
 
-            
+
+            function dropPin() {
+              console.log("$$$$$$"+ allAddresses[5] )
+              for (var i = 0; i< allAddresses.length; i++) {
+                  console.log("before the loop" +allAddresses[i])
+                console.log("in the loop************")
+                setTimeout(function() {
+                  lightPath(allAddresses[i]);
+                }, i*100);
+              }
+            }
+
               var lightPath = function(adr) {
+                console.log("in the matrix********")
                 geocoder.geocode({'address': adr}, function(adr, status){
 
               if (status == google.maps.GeocoderStatus.OK) {
-                  
+                    console.log(adr[0].geometry.location)
                     var marker = new google.maps.Marker({
                         map: map,
                         position: adr[0].geometry.location
-                        
+
                     });
               } else {
                     alert("Geocode was not successful for the following reason: " + status);
                 }
 
                 });
-              
+
               }
 
-        
+
       });
 
     }
-  
+
         var launchDiv = document.createElement('div');
         var homeControl = new BindListener(launchDiv, map);
         launchDiv.index = 1;
