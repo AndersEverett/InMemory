@@ -1,8 +1,8 @@
-      var map;
+      // var map;
       // var heatmap;
-
+      allAddresses = [];
       function createMap() {
-
+        geocoder = new google.maps.Geocoder();
         var mapOptions = {
           center: { lat: 38.50, lng: -96.28},
           zoom: 5.0
@@ -47,18 +47,48 @@
           },
         ]);
 
-        console.log("map set");
+        $.ajax({
+              url: '/soldiers',
+              type: 'get'
 
-        function lightPath(coords) {
-          var marker1 = new google.maps.Marker({
-              map: map,
-              position: new google.maps.LatLng(coords[0], coords[1]),
-              // icon: 'images/light.png',
-              animation: google.maps.Animation.DROP
+            }).done(function(data) {
+                console.log("here's the data")
+                $.each(data, function(index, value) {
+                  console.log(data[index][0]);
+                  console.log(data[index][1]);
+                  address = (data[index][0]) + "," + (data[index][1])
+                  lightPath(address)
+                 });
+            }).fail(function() {
+               console.log("Something needs to be fixed.")
             });
-        }
-          lightPath([37.7833, -122.41467]);
-        }
+
+
+              var lightPath = function(adr) {
+                geocoder.geocode({'address': adr}, function(adr, status){
+
+              if (status == google.maps.GeocoderStatus.OK) {
+                console.log("inside if statement")
+                    // map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: adr[0].geometry.location
+                        // animation: google.maps.Animation.DROP
+                    });
+              } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+
+                });
+              console.log("********inside");
+              console.log("****"+adr);
+              console.log(status)
+                console.log("post attempted");
+              }
+
+
+
+      }
 
 google.maps.event.addDomListener(window, 'load', createMap);
 
