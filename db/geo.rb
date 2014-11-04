@@ -1,9 +1,8 @@
 
 def get_geo
   @soldiers = Soldier.where("country like ?", "%U.S.%").all
-  @soldiers = @soldiers.where("id < 1000").limit(1000)
+  @soldiers = @soldiers.where("id > 2422").limit(1000)
   @soldiers.each do |soldier|
-    p "soldier"
     if soldier.longitude == nil
       city = soldier.city
       if city != nil
@@ -24,14 +23,15 @@ def get_geo
             if @coord_find["results"][0] != nil
               if@coord_find["results"][0]["geometry"] != nil
                 if @coord_find["results"][0]["geometry"]["location"] != nil
-                  p @lat = @coord_find["results"][0]["geometry"]["location"]["lat"]
+                  @lat = @coord_find["results"][0]["geometry"]["location"]["lat"]
                   if @lat != nil
                     soldier.latitude = @lat
                   end
-                  p @long = @coord_find["results"][0]["geometry"]["location"]["lng"]
+                  @long = @coord_find["results"][0]["geometry"]["location"]["lng"]
                   if @long != nil
                     soldier.longitude = @long
                   end
+                  p soldier.id
                   soldier.save
                 end
               end
