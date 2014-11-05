@@ -17,7 +17,7 @@ end
 
 get '/soldiers' do
   content_type 'json'
-  @sols = Soldier.limit(1000).select("latitude", "longitude")
-  p @sols[1..10]
-  @sols.to_json  #problem?
+  @sols = Soldier.select("latitude", "longitude")
+  p @sols.length
+  @sols.to_json  
 end

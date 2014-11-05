@@ -1,7 +1,7 @@
 
 def get_geo
   @soldiers = Soldier.where("country like ?", "%U.S.%").all
-  @soldiers = @soldiers.where("id > 2422").limit(1000)
+  @soldiers = @soldiers.where("id > 2462").limit(1000)
   @soldiers.each do |soldier|
     if soldier.longitude == nil
       city = soldier.city

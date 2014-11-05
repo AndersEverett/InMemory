@@ -8,7 +8,12 @@
 
         var mapOptions = {
           center: { lat: 38.50, lng: -96.28},
-          zoom: 5.0
+          zoom: 5.0, 
+          draggable: false,
+          scrollwheel: false,
+          navigationControl: false,
+          mapTypeControl: false,
+          scaleControl: false
         };
         var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
@@ -66,10 +71,15 @@
       controlDiv.appendChild(controlUI);
 
       var controlText = document.createElement('div');
+      controlText.style.backgroundColor = '#E6B2CC'
+
+      controlText.style.height = '50px'
+      controlText.style.width = '60px'
       controlText.style.fontFamily = 'Arial,sans-serif';
       controlText.style.fontSize = '12px';
       controlText.style.paddingLeft = '4px';
       controlText.style.paddingRight = '4px';
+      controlText.style.paddingTop = '10px';
       controlText.innerHTML = '<b>Launch Memorial</b>';
       controlUI.appendChild(controlText);
 
@@ -103,12 +113,24 @@
           var pin = allLatLongs[iterator]
   		    markers.push(new google.maps.Marker({
     		    position: pin,
+            icon: gold,
     	      map: map,
     	      draggable: false,
     	      animation: google.maps.Animation.DROP
   	      }));
   		    iterator++;
   	    }
+
+        var gold = {
+          path: 'M 5, 5 m -5, 0 a 5, 5 0 1,0 10,0 a 5,5 0 1,0 -10,0 z',
+          fillColor: '#7FFFD4',
+          fillOpacity: 0.8,
+          scale: 1,
+          strokeColor: 'gold',
+          strokeWeight: 1
+        };
+
+
       }
 
 
