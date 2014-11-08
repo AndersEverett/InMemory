@@ -1,8 +1,8 @@
 
 def get_geo
   @soldiers = Soldier.where("country like ?", "%U.S.%").all
-  @soldiers = @soldiers.where("id > 2462").limit(1000)
-  @soldiers.each do |soldier|
+  # @soldiers = @soldiers.where("id > 6949").limit(1000)  #used this incrementally to load db w/i google's daily limits
+  @soldiers.each do |soldier|                             #with lats and lngs
     if soldier.longitude == nil
       city = soldier.city
       if city != nil

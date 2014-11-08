@@ -3,21 +3,16 @@ get '/' do
 end
 
 
-# get '/soldiers' do
+# get '/soldiers' do				#using lat longs for reverse geocoding 
 #   content_type 'json'
-#   @soldiers = Soldier.where("country like ?", "%U.S.%").all
-#   @soldiers = @soldiers.limit(300)
-#   @all_locales = []
-#   p "got the list of soldiers*******************"
-#   @soldiers.each do |soldier|
-#     @all_locales.push(load_soldiers_helper(soldier))
-#   end
-#   p @all_locales.to_json
+#   @sols = Soldier.select("latitude", "longitude")
+#   store_lat_lngs(@sols)        #preparing lat longs to yaml for alt persistence & Heroku performance improvement
+#   # @sols.to_json  
 # end
 
-get '/soldiers' do
+
+get '/soldiers' do		#alt route to feed map from yaml store
   content_type 'json'
-  @sols = Soldier.select("latitude", "longitude")
-  p @sols.length
-  @sols.to_json  
+  pin_points = get_lat_lngs
+  pin_points.to_json  
 end

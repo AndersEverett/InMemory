@@ -9,6 +9,7 @@
         var mapOptions = {
           center: { lat: 38.50, lng: -96.28},
           zoom: 5.0, 
+          disableDefaultUI: true,
           draggable: false,
           scrollwheel: false,
           navigationControl: false,
@@ -71,11 +72,11 @@
       controlDiv.appendChild(controlUI);
 
       var controlText = document.createElement('div');
-      controlText.style.backgroundColor = '#E6B2CC'
-
-      controlText.style.height = '50px'
-      controlText.style.width = '60px'
-      controlText.style.fontFamily = 'Arial,sans-serif';
+      controlText.style.backgroundColor = '#E6B2CC';
+      controlText.style.borderRadius = '5px';
+      controlText.style.height = '50px';
+      controlText.style.width = '60px';
+      controlText.style.fontFamily = 'Helvetica';
       controlText.style.fontSize = '12px';
       controlText.style.paddingLeft = '4px';
       controlText.style.paddingRight = '4px';
@@ -85,12 +86,16 @@
 
       
       function dropPin() {
-        
+        console.log("in pins")
         $.ajax({
               url: '/soldiers',
               type: 'get'
 
             }).done(function(data) {
+                console.log(data.points[16].latitude)
+                console.log(data.points[16].longitude)
+                data = data.points
+                console.log(data)
                 $.each(data, function(index, value) {
                   var pin = new google.maps.LatLng(data[index].latitude, data[index].longitude)
                   allLatLongs.push(pin)
@@ -105,8 +110,9 @@
           for (var i = 0; i< allLatLongs.length; i++) {
             setInterval(function() {
               lightPath();
-            }, i*200);
+            }, i*500);
           }
+          console.log(markers.length)
         },
         
         lightPath = function() {
@@ -119,6 +125,7 @@
     	      animation: google.maps.Animation.DROP
   	      }));
   		    iterator++;
+
   	    }
 
         var gold = {
