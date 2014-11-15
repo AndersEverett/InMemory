@@ -1,5 +1,25 @@
-#map-canvas { height: 100%; margin: 0; padding: 0;}
+#map-canvas { 
+	height: 100%; 
+	margin: 0; 
+	padding: 0;
+}
 
-/*.address {
-  visibility: none;
-}*/
+#legend  {
+	
+  	width: 240px;
+  	height: 50px;
+    background: white;
+    padding: 10px;
+    border-style: solid;
+    border-color: 1px black;
+	  
+}
+
+.key {
+	height: 5px;
+	width: 5px;
+	background-color: '#7FFFD4';
+	border-style = solid;
+	border-color = 2px gold;
+	border-radius = 50%;
+}

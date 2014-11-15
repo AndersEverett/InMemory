@@ -61,25 +61,26 @@
 
       
       controlDiv.style.padding = '5px';
+      var legend = document.getElementById('legend');
 
       var controlUI = document.createElement('div');
-      controlUI.style.backgroundColor = 'white';
+      controlUI.style.height = '70px';
+      controlUI.style.width = '70px';
+      controlUI.style.marginRight = '100px'
+      controlUI.style.marginTop = '20px'
+      controlUI.style.paddingTop = '8px';
+      controlUI.style.backgroundColor = '#7FFFD4';
       controlUI.style.borderStyle = 'solid';
       controlUI.style.borderWidth = '2px';
+      controlUI.style.borderRadius = '50%';
       controlUI.style.cursor = 'pointer';
       controlUI.style.textAlign = 'center';
       controlUI.title = 'Launch Memorial';
       controlDiv.appendChild(controlUI);
 
       var controlText = document.createElement('div');
-      controlText.style.backgroundColor = '#E6B2CC';
-      controlText.style.borderRadius = '5px';
-      controlText.style.height = '50px';
-      controlText.style.width = '60px';
-      controlText.style.fontFamily = 'Helvetica';
+      controlText.style.fontFamily = 'Helvetica Neue';
       controlText.style.fontSize = '12px';
-      controlText.style.paddingLeft = '4px';
-      controlText.style.paddingRight = '4px';
       controlText.style.paddingTop = '10px';
       controlText.innerHTML = '<b>Launch Memorial</b>';
       controlUI.appendChild(controlText);
@@ -140,13 +141,20 @@
 
       }
 
-
+      var legend = document.getElementById('legend');
       
+        // var name = style.name;
+        // var icon = style.icon;
+        // var div = document.createElement('div');
+        // div.innerHTML = icon + " = one hometown of";
+        // legend.append"<p>" + icon + "<p>";
+      
+            
       google.maps.event.addDomListener(controlUI, 'click', function() {
             dropPin();
        
       });
-
+  
 
     }
 
@@ -154,6 +162,8 @@
         var homeControl = new BindListener(launchDiv, map);
         launchDiv.index = 1;
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(launchDiv);
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(
+          document.getElementById('legend'));
 
 }
 

@@ -1,12 +1,48 @@
 
   <head>
-    <link rel="stylesheet" href="/css/application.css">
+  	<!-- horrific use of styling in head - Google maps seems to be interfering with css path -->
     <style type="text/css">
       html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
     </style>
+    <style>						
+	  #legend {
+	  	width: 130px;
+	  	height: 130px;
+	    background: #7FFFD4;
+	    padding: 20px;
+	    border-style: 1px solid;
+	    border-color: Black;
+	    border-radius: 50%;
+	    margin-bottom: 30px;
+	    margin-right: 30px;
+	  }
+    </style>
+    <style>
+      .key {
+      	height: 10px;
+		width: 10px;
+		background-color: '#7FFFD4';
+		border-style = solid;
+		border-color = 2px gold;
+		border-radius = 50%;
+      }
+    </style>
+    <style>
+      .text  {
+        margin-top: 10%;
+        text-align: center;
+        font-family: 'Bitter', serif;
+        font-size: 1.4em;
+      }
 
+    </style>
   </head>
    <body>
-     
-    
+     <div id="map-canvas"></div>
+     <div id="legend">
+      <!-- <svg height="30" width="30">
+        <circle cx="50" cy="20" r="10" stroke="black" stroke-width="1" fill="Green" />
+      </svg> -->
+       <div class = "text"> Hometowns of American casualties in Iraq and Afghanistan </div>
+     </div>
   </body>
