@@ -71,7 +71,8 @@
       controlUI.style.paddingTop = '8px';
       controlUI.style.backgroundColor = '#7FFFD4';
       controlUI.style.borderStyle = 'solid';
-      controlUI.style.borderWidth = '2px';
+      controlUI.style.borderColor = 'gold';
+      controlUI.style.borderWidth = '1px';
       controlUI.style.borderRadius = '50%';
       controlUI.style.cursor = 'pointer';
       controlUI.style.textAlign = 'center';
