@@ -111,7 +111,7 @@
           for (var i = 0; i< allLatLongs.length; i++) {
             setInterval(function() {
               lightPath();
-            }, i*500);
+            }, i*50);
           }
           console.log(markers.length)
         },
@@ -141,15 +141,6 @@
 
       }
 
-      var legend = document.getElementById('legend');
-      
-        // var name = style.name;
-        // var icon = style.icon;
-        // var div = document.createElement('div');
-        // div.innerHTML = icon + " = one hometown of";
-        // legend.append"<p>" + icon + "<p>";
-      
-            
       google.maps.event.addDomListener(controlUI, 'click', function() {
             dropPin();
        
