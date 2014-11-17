@@ -1,4 +1,3 @@
-      var map;
       var allLatLongs = [];
       var iterator = 0;
       var markers = [];
